@@ -1,0 +1,59 @@
+{
+	"servers": {
+		"hubi": {
+			"url": "http://localhost:37373/mcp",
+			"type": "http"
+		},
+		"my-mcp-server-d68b4297": {
+			"url": "https://api.ref.tools/mcp",
+			"type": "http"
+		},
+		"io.github.upstash/context7": {
+			"type": "stdio",
+			"command": "npx",
+			"args": [
+				"@upstash/context7-mcp@1.0.31"
+			],
+			"env": {
+				"CONTEXT7_API_KEY": "${input:CONTEXT7_API_KEY}"
+			},
+			"gallery": "https://api.mcp.github.com",
+			"version": "1.0.31"
+		},
+		"deep-wiki": {
+			"url": "https://mcp.deepwiki.com/mcp",
+			"type": "http"
+		},
+		"ref-docs": {
+			"url": "https://api.ref.tools/mcp?apiKey=ref-8ff7ede18c3a940de8e3",
+			"type": "http"
+		},
+		"brave-search": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"@brave/brave-search-mcp-server",
+				"--transport",
+				"stdio"
+			],
+			"env": {
+				"BRAVE_API_KEY": "${input:brave-api-key}"
+			},
+			"type": "stdio"
+		}
+	},
+	"inputs": [
+		{
+			"id": "CONTEXT7_API_KEY",
+			"type": "promptString",
+			"description": "API key for authentication",
+			"password": true
+		},
+		{
+			"password": true,
+			"id": "brave-api-key",
+			"type": "promptString",
+			"description": "Brave Search API Key"
+		}
+	]
+}

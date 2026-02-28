@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { 
   Youtube, 
   Server, 
@@ -15,11 +15,26 @@ import McpTab from './tabs/mcp';
 import PdfTab from './tabs/pdf';
 import CopyTab from './tabs/copy';
 import CloudTab from './tabs/cloud';
+import { getMcpStatus } from '@/lib/mcpApi';
 
 type ViewType = 'home' | 'youtube' | 'mcp' | 'pdf' | 'copy' | 'cloud';
 
 export default function WindowsSettings() {
   const [activeView, setActiveView] = useState<ViewType>('home');
+  const [mcpStatus, setMcpStatus] = useState('Stopped');
+
+  const refreshMcpStatus = useCallback(async () => {
+    try {
+      const status = await getMcpStatus();
+      setMcpStatus(status.running ? 'Running' : 'Stopped');
+    } catch {
+      setMcpStatus('Stopped');
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshMcpStatus();
+  }, [refreshMcpStatus]);
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
@@ -51,7 +66,7 @@ export default function WindowsSettings() {
             <StatusItem 
               icon={Server} 
               label="MCP" 
-              status="Up-to-date" 
+              status={mcpStatus} 
               isActive={activeView === 'mcp'}
               onClick={() => setActiveView('mcp')}
             />
@@ -95,7 +110,13 @@ export default function WindowsSettings() {
           <AnimatePresence mode="wait">
             {activeView === 'home' && <HomeTab key="home" />}
             {activeView === 'youtube' && <YoutubeTab key="youtube" onBack={() => setActiveView('home')} />}
-            {activeView === 'mcp' && <McpTab key="mcp" onBack={() => setActiveView('home')} />}
+            {activeView === 'mcp' && (
+              <McpTab
+                key="mcp"
+                onBack={() => setActiveView('home')}
+                onHubStatusChange={(running) => setMcpStatus(running ? 'Running' : 'Stopped')}
+              />
+            )}
             {activeView === 'pdf' && <PdfTab key="pdf" onBack={() => setActiveView('home')} />}
             {activeView === 'copy' && <CopyTab key="copy" />}
             {activeView === 'cloud' && <CloudTab key="cloud" onBack={() => setActiveView('home')} />}
