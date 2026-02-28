@@ -1,0 +1,133 @@
+{
+  "timestamp": "2026-02-28T16:31:55.814Z",
+  "testVideoUrl": "https://www.youtube.com/watch?v=2Dt2DbjAKbo&t=4s",
+  "summary": {
+    "total": 14,
+    "passed": 13,
+    "failed": 1,
+    "passRate": "92.9"
+  },
+  "results": [
+    {
+      "test": "Health Check",
+      "status": "PASS",
+      "result": {
+        "node": "v24.13.0",
+        "platform": "win32 10.0.26200"
+      },
+      "error": null
+    },
+    {
+      "test": "Get Config",
+      "status": "PASS",
+      "result": {
+        "credentialsPath": true,
+        "downloadDirectory": "D:\\videos4app"
+      },
+      "error": null
+    },
+    {
+      "test": "Get Auth Status",
+      "status": "PASS",
+      "result": {
+        "ready": true,
+        "message": "Auth files are ready."
+      },
+      "error": null
+    },
+    {
+      "test": "Refresh Token",
+      "status": "PASS",
+      "result": {
+        "message": "Token refresh successful."
+      },
+      "error": null
+    },
+    {
+      "test": "Download Best MP4",
+      "status": "PASS",
+      "result": {
+        "outputPath": "D:\\videos4app\\Acceleration Training For Footballers⧸Soccer Players ｜ Reach Top Speed Faster ｜ Individual Drills\\Acceleration Training For Footballers⧸Soccer Players ｜ Reach Top Speed Faster ｜ Individual Drills.mp4"
+      },
+      "error": null
+    },
+    {
+      "test": "Fetch Video Chapters",
+      "status": "PASS",
+      "result": {
+        "videoId": "2Dt2DbjAKbo",
+        "videoTitle": "Acceleration Training For Footballers/Soccer Players | Reach Top Speed Faster | Individual Drills",
+        "chaptersCount": 0
+      },
+      "error": null
+    },
+    {
+      "test": "Fetch Transcript",
+      "status": "FAIL",
+      "result": null,
+      "error": "HTTP 400: Bad Request"
+    },
+    {
+      "test": "List Playlists",
+      "status": "PASS",
+      "result": {
+        "count": 14,
+        "firstPlaylist": "codex-test-20260228-171408"
+      },
+      "error": null
+    },
+    {
+      "test": "Create Test Playlist",
+      "status": "PASS",
+      "result": {
+        "id": "PL91_XgQQWMAbRgQolW44Bi2Sks0JwTXhe",
+        "title": "Test Playlist - 1772296139664",
+        "privacyStatus": "unlisted"
+      },
+      "error": null
+    },
+    {
+      "test": "List Channel Videos",
+      "status": "PASS",
+      "result": {
+        "count": 50,
+        "firstVideo": "Calf Jumps"
+      },
+      "error": null
+    },
+    {
+      "test": "Add Video to Playlist",
+      "status": "PASS",
+      "result": {
+        "added": true
+      },
+      "error": null
+    },
+    {
+      "test": "List Playlist Videos",
+      "status": "PASS",
+      "result": {
+        "count": 1
+      },
+      "error": null
+    },
+    {
+      "test": "Fetch Channel Report",
+      "status": "PASS",
+      "result": {
+        "channelTitle": "NBA",
+        "videosCount": 18955,
+        "markdownPath": "D:\\videos4app\\youtube_channel_report_NBA_UCWJ2lWNubArHWmf3FIHbfcQ_20260228_163154.md"
+      },
+      "error": null
+    },
+    {
+      "test": "Delete Test Playlist",
+      "status": "PASS",
+      "result": {
+        "deleted": true
+      },
+      "error": null
+    }
+  ]
+}

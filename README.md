@@ -18,3 +18,18 @@ View your app in AI Studio: https://ai.studio/apps/67f62fe0-8f35-4098-8316-fddc3
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## YouTube Backend (Node + Python bridge)
+
+- Start frontend + backend together:
+  `npm run dev` (or `npm run dev:all`)
+- Or run backend only:
+  `npm run backend`
+ - Or run UI only (no YouTube backend):
+  `npm run dev:ui`
+
+Optional environment variables:
+
+- `YOUTUBE_BACKEND_PORT` (default: `8787`)
+- `YOUTUNE_ROOT` (default: `C:\Users\paul\projects\python-youtune`)
+- `YOUTUBE_PYTHON_BIN` (default: `python`)

@@ -1,0 +1,72 @@
+[
+  {
+    "test": "health",
+    "ok": true,
+    "detail": "v24.13.0"
+  },
+  {
+    "test": "config",
+    "ok": true,
+    "detail": "D:\\videos4app"
+  },
+  {
+    "test": "auth_status",
+    "ok": true,
+    "detail": "Auth files are ready."
+  },
+  {
+    "test": "auth_refresh",
+    "ok": true,
+    "detail": "Token refresh successful."
+  },
+  {
+    "test": "transcript",
+    "ok": false,
+    "detail": "Response status code does not indicate success: 400 (Bad Request)."
+  },
+  {
+    "test": "chapters",
+    "ok": true,
+    "detail": "count=0"
+  },
+  {
+    "test": "download",
+    "ok": false,
+    "detail": "Response status code does not indicate success: 400 (Bad Request)."
+  },
+  {
+    "test": "fetch_channel",
+    "ok": true,
+    "detail": "videos=895"
+  },
+  {
+    "test": "create_playlist",
+    "ok": true,
+    "detail": "PL91_XgQQWMAbJ1-o1hJ_HImYzrW6Kdh6R"
+  },
+  {
+    "test": "add_video_to_playlist",
+    "ok": true,
+    "detail": "added"
+  },
+  {
+    "test": "list_playlist_videos",
+    "ok": true,
+    "detail": "count=0"
+  },
+  {
+    "test": "delete_playlist",
+    "ok": true,
+    "detail": "deleted"
+  },
+  {
+    "test": "list_playlists",
+    "ok": true,
+    "detail": "count=13"
+  },
+  {
+    "test": "list_channel_videos",
+    "ok": true,
+    "detail": "count=50"
+  }
+]
