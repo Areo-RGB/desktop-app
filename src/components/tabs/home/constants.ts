@@ -1,0 +1,16 @@
+export const SETTINGS_ITEMS = [
+  { id: 'system', icon: 'Monitor', title: 'System', desc: 'Display, notifications, power', color: 'text-blue-400' },
+  { id: 'devices', icon: 'Speaker', title: 'Devices', desc: 'Bluetooth, printers, mouse', color: 'text-orange-400' },
+  { id: 'phone', icon: 'Smartphone', title: 'Phone', desc: 'Link your Android, iPhone', color: 'text-blue-300' },
+  { id: 'network', icon: 'Globe', title: 'Network & Internet', desc: 'Wi-Fi, airplane mode, VPN', color: 'text-blue-500' },
+  { id: 'personalization', icon: 'Palette', title: 'Personalization', desc: 'Background, lock screen, colors', color: 'text-blue-400' },
+  { id: 'apps', icon: 'LayoutGrid', title: 'Apps', desc: 'Uninstall, defaults, optional features', color: 'text-green-400' },
+  { id: 'accounts', icon: 'User', title: 'Accounts', desc: 'Your accounts, email, sync, work, family', color: 'text-yellow-400' },
+  { id: 'time', icon: 'Languages', title: 'Time & Language', desc: 'Region, speech, keyboard', color: 'text-green-500' },
+  { id: 'gaming', icon: 'Gamepad2', title: 'Gaming', desc: 'Game bar, DVR, broadcasting, Game Mode', color: 'text-purple-400' },
+  { id: 'ease', icon: 'Accessibility', title: 'Ease of Access', desc: 'Narrator, magnifier, high contrast', color: 'text-blue-400' },
+  { id: 'search', icon: 'Search', title: 'Search', desc: 'Find my files, permissions', color: 'text-yellow-500' },
+  { id: 'cortana', icon: 'Circle', title: 'Cortana', desc: 'Cortana language, permissions, notifications', color: 'text-blue-400' },
+  { id: 'privacy', icon: 'Lock', title: 'Privacy', desc: 'App Permissions, location, camera, notifications', color: 'text-yellow-600' },
+  { id: 'update', icon: 'RefreshCw', title: 'Update & Security', desc: 'Windows Update, recovery, backup', color: 'text-blue-400' },
+];

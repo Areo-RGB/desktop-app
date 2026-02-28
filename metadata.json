@@ -1,0 +1,5 @@
+{
+  "name": "Remix: Windows Settings Clone",
+  "description": "A high-fidelity recreation of the Windows Settings interface with dark mode, acrylic effects, and responsive grid layout.",
+  "requestFramePermissions": []
+}
