@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express from 'express';
+import fs from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { runYouTubeOperation } from './youtubeService.js';
@@ -9,6 +10,10 @@ const port = Number(process.env.YOUTUBE_BACKEND_PORT || 8787);
 
 const MCP_HUB_PORT = 3000;
 const MCP_HUB_CONFIG = path.resolve(process.cwd(), '.vscode/mcp.json');
+const MCP_HUB_WRAPPER_PATH = 'C:\\nvm4w\\nodejs\\mcp-hub';
+const MCP_HUB_WRAPPER_CMD_PATH = 'C:\\nvm4w\\nodejs\\mcp-hub.cmd';
+const MCP_HUB_PACKAGE_CLI_PATH = 'C:\\nvm4w\\nodejs\\node_modules\\mcp-hub\\dist\\cli.js';
+const NODE_BINARY_PATH = 'C:\\nvm4w\\nodejs\\node.exe';
 const MCP_HUB_START_TIMEOUT_MS = 8000;
 const MCP_HUB_POLL_INTERVAL_MS = 250;
 let mcpHubProcess = null;
@@ -30,6 +35,42 @@ function asyncRoute(handler) {
 
 function isMcpHubRunning() {
   return Boolean(mcpHubProcess && mcpHubProcess.exitCode === null);
+}
+
+function resolveMcpHubCommand() {
+  if (fs.existsSync(MCP_HUB_PACKAGE_CLI_PATH) && fs.existsSync(NODE_BINARY_PATH)) {
+    return {
+      command: NODE_BINARY_PATH,
+      args: [MCP_HUB_PACKAGE_CLI_PATH],
+      options: { windowsHide: true },
+      label: `${NODE_BINARY_PATH} ${MCP_HUB_PACKAGE_CLI_PATH}`,
+    };
+  }
+
+  if (fs.existsSync(MCP_HUB_WRAPPER_CMD_PATH)) {
+    return {
+      command: 'cmd.exe',
+      args: ['/d', '/s', '/c', MCP_HUB_WRAPPER_CMD_PATH],
+      options: { windowsHide: true },
+      label: MCP_HUB_WRAPPER_CMD_PATH,
+    };
+  }
+
+  if (fs.existsSync(MCP_HUB_WRAPPER_PATH)) {
+    return {
+      command: 'cmd.exe',
+      args: ['/d', '/s', '/c', MCP_HUB_WRAPPER_PATH],
+      options: { windowsHide: true },
+      label: MCP_HUB_WRAPPER_PATH,
+    };
+  }
+
+  return {
+    command: 'mcp-hub',
+    args: [],
+    options: { windowsHide: true },
+    label: 'mcp-hub',
+  };
 }
 
 function sleep(ms) {
@@ -162,7 +203,12 @@ app.post(
       return { ok: true, alreadyRunning: true };
     }
 
-    mcpHubProcess = spawn('mcp-hub', ['--config', MCP_HUB_CONFIG, '--port', String(MCP_HUB_PORT)]);
+    const launch = resolveMcpHubCommand();
+    mcpHubProcess = spawn(
+      launch.command,
+      [...launch.args, '--config', MCP_HUB_CONFIG, '--port', String(MCP_HUB_PORT)],
+      launch.options,
+    );
 
     mcpHubProcess.stdout?.pipe(process.stdout);
     mcpHubProcess.stderr?.pipe(process.stderr);
@@ -182,7 +228,9 @@ app.post(
         mcpHubProcess.kill();
       }
       mcpHubProcess = null;
-      throw error;
+      throw new Error(
+        `${error instanceof Error ? error.message : 'Failed to start mcp-hub.'} Launch target: ${launch.label}`,
+      );
     }
 
     return { ok: true };

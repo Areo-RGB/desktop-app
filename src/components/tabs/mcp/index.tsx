@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { motion } from 'motion/react';
 import { Server, CheckCircle2, XCircle, HardDrive } from 'lucide-react';
 import { TabContent } from '@/components/ui/TabContent';
 import {
@@ -132,6 +131,17 @@ export default function McpTab({
     }
   };
 
+  const handleCardToggle = async () => {
+    if (loading) {
+      return;
+    }
+    if (hubRunning) {
+      await handleStop();
+      return;
+    }
+    await handleStart();
+  };
+
   return (
     <TabContent
       title="MCP Server"
@@ -139,7 +149,21 @@ export default function McpTab({
       icon={Server}
     >
       <div className="space-y-6">
-        <div className="acrylic-card p-6 flex items-center justify-between">
+        <div
+          className={`acrylic-card p-6 flex items-center justify-between transition-colors ${
+            loading ? 'cursor-wait opacity-80' : 'cursor-pointer hover:bg-white/10'
+          }`}
+          onClick={handleCardToggle}
+          role="button"
+          aria-busy={loading}
+          tabIndex={0}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              void handleCardToggle();
+            }
+          }}
+        >
           <div className="flex items-center gap-4">
             <div className={`${hubRunning ? 'bg-green-500/20' : 'bg-red-500/20'} p-3 rounded-full transition-colors`}>
               {hubRunning ? (
@@ -155,30 +179,13 @@ export default function McpTab({
               <p className="text-sm text-gray-400">
                 {hubRunning
                   ? `${servers.length} server${servers.length === 1 ? '' : 's'} from .vscode/mcp.json`
-                  : 'Start the hub to load MCP servers from .vscode/mcp.json'}
+                  : 'Click to start the hub and load servers from .vscode/mcp.json'}
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className={`w-12 h-6 rounded-full p-1 transition-colors ${hubRunning ? 'bg-blue-500' : 'bg-gray-600'}`}>
-              <motion.div
-                className="w-4 h-4 bg-white rounded-full shadow-sm"
-                animate={{ x: hubRunning ? 24 : 0 }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-              />
-            </div>
-            <button
-              className={`px-6 py-2 rounded-sm text-sm font-medium transition-colors ${
-                hubRunning
-                  ? 'bg-red-600 hover:bg-red-500'
-                  : 'bg-blue-600 hover:bg-blue-500'
-              } ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
-              onClick={hubRunning ? handleStop : handleStart}
-              disabled={loading}
-            >
-              {hubRunning ? 'Stop Hub' : 'Start Hub'}
-            </button>
-          </div>
+          <p className="text-xs text-gray-400">
+            {loading ? 'Updating...' : hubRunning ? 'Click to stop' : 'Click to start'}
+          </p>
         </div>
 
         {!hubRunning && (
